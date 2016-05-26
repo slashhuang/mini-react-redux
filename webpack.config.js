@@ -1,30 +1,30 @@
 /**
- * Created by slashhuang on 16/3/8.
+ * Created by slashhuang on 16/4/7.
  */
-
-var path =require('path');
+var path = require("path");
+var webpack =require('webpack');
 module.exports = {
     entry: {
-        example:"./example/example.js"
+        index: "./index.js"
     },
     output: {
-        path: path.join(__dirname,'dist'),
-        filename: "[name].js"
+        path: path.join(__dirname, 'js'),//必须是绝对路径
+        filename: '[name].js',
+        publicPath: "/static/",//调试地址为相对路径,它会观察所有bundle的文件，从此publicPath更新内存中的js文件获取
     },
-    module: {
+    plugins: [
+        new webpack.HotModuleReplacementPlugin()
+    ],
+    module:{
         loaders: [
-            {   test: /\.jsx?$/,
-                loader: "babel-loader",
+            {
+                test: /\.js|\.jsx$/,
                 exclude: /node_modules/,
-                query: {
-                    presets: ['react','es2015']
-                }
-
-            },
-
+                loaders: ['react-hot-loader','babel-loader']
+            }
         ],
         resolve: {
-            extensions: ['', '.js', '.jsx']
+            extensions: ['.js']
         }
     }
 };
