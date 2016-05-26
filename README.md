@@ -7,4 +7,4 @@
 ```
 
 ## demo展示图
-![展示]()
+![展示](/assets/mini-react-redux.gif)

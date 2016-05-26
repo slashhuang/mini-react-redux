@@ -9,42 +9,38 @@ import {render} from "react-dom";
 var reducer=function(state,action){
     return Object.assign({},state,action);
 };
-var actions=function(){
+var action=function(){
     return {
         'type':'dispatching',
-        'action':'it\'s dispatching'
+        'data':['mini','react','redux','worked']
     }
 };
 let store = createStore(reducer,{"hello":"world"});
 class Container extends Component{
-    static contextTypes={
-        store:PropTypes.shape({
-            subscribe: PropTypes.func.isRequired,
-            dispatch: PropTypes.func.isRequired,
-            getState: PropTypes.func.isRequired
-        })};
-    constructor(props,context){
+    constructor(props){
         super(props);
     }
     componentDidMount(){
-       setTimeout(()=>this.props.actions(),2000);
+       setTimeout(()=>this.props.action(),2000);
     }
     render(){
         return(
             <div>
-                <div>{JSON.stringify(this.context.store.getState())}</div>
-                <div>{this.props.hello}</div>
-                <div>{this.props.action}</div>
+                <div>执行动作:{JSON.stringify(this.props.hint)}</div>
+                <ul>{this.props.data.length?'结果':''}
+                    {this.props.data.map((ele)=>{
+                   return <li>{ele}</li>
+                })}</ul>
             </div>
         )
     }
 };
 let IndexContainer= connect((state)=>{
     return {
-        hello:state.hello,
-        action:state.action||'rendering'
+        data:state.data||[],
+        hint:state.type
     };
-},{actions})(Container);
+},{action})(Container);
 class ModuleContainer extends Component{
     constructor(props){
         super(props);
