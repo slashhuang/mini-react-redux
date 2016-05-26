@@ -2,4 +2,8 @@
 ---
 
 > 50行代码解决react+redux项目搭建  
-> 
+
+## 命令
+```bash
+    npm start
+```
