@@ -29,56 +29,46 @@ class Container extends Component{
             a:0
         }
     }
-    componentDidMount(){
-       //setTimeout(()=>this.props.action(),2000);
-        console.log('====didmount0=>1===')
-            this.setState({
-                a:1
-            });
-        console.log(this.state.a)
-        setTimeout(()=>{this.setState({
-            a:2})
-            console.log('====timeout 1=>2===')
-            console.log(this.state.a)
-        }, 500 );
-
-    }
+      
     clickDom(){
-        "use strict";
-        console.log('====onClick 2=>3===');
-        this.state.a=4;
-        this.setState({a:3});
-         console.log(this.state.a)
-         this.state.a=5;
-        console.log(this.state.a)
+        this.props.action1();
     }
     render(){
         console.log('render', this.state.a)
         return(
             <div>
+                this is myCustomized Props { this.props.my }
                 <div onClick={()=>this.clickDom()}>测试react1管理的事件</div>
                 <ul>{this.props.data.length?'结果':''}
                     {this.props.data.map((ele)=>{
-                   return <li>{ele}</li>
+                   return <li key={ele}>{ele}</li>
                 })}</ul>
                 {this.state.a}
             </div>
         )
     }
 };
-let IndexContainer= connect((state)=>{
+debugger;
+let IndexContainer= connect((state, props)=>{
     return {
         data:state.data||[],
-        hint:state.type
+        hint:state.type,
+        hello: props.hello
     };
-},{action})(Container);
+},(dispatch, props)=>{
+     return {
+            action1:() => dispatch(action())
+    }
+},(stateProps, dispatchProps, parentProps) => {
+   return  Object.assign({},stateProps, dispatchProps, parentProps, {my: "myProps"})
+})(Container);
 class ModuleContainer extends Component{
     constructor(props){
         super(props);
     }
     render(){
         return (<Provider store={store}>
-                    <IndexContainer/>
+                    <IndexContainer hello={'world'}/>
                 </Provider>)
     }
 }

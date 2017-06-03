@@ -4,7 +4,7 @@
   "description": "react-redux research",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --progress --colors --port 8001"
+    "start": "webpack-dev-server --progress --colors --port 8001"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   "dependencies": {
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
-    "react-redux": "^4.4.5",
+    "react-redux": "^5.0.5",
     "react-router": "^2.4.0",
     "redux": "^3.5.2"
   },
